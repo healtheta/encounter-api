@@ -71,6 +71,8 @@ public class EncounterController {
         Long id = encounter.getId();
         Encounter tmp = encounterRepo.findEncounterById(id);
         if(tmp != null){
+            //reference and identifier cannot be re-modified once commited
+            encounter.setIdentifier(tmp.getIdentifier());
             encounter.setReference(tmp.getReference());
             encounter = encounterRepo.save(encounter);
             return new ResponseEntity<Encounter>(encounter,
